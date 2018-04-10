@@ -1,0 +1,59 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "(gdb) Bash on Windows Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "main",
+            "args": [],
+            "stopAtEntry": true,
+            "cwd": "/mnt/d/Workplace/C/VSCODE",
+            "environment": [],
+            // "pipeTransport": {
+            //     "debuggerPath": "gdb",
+            //     "pipeProgram": "C:\\Windows\\sysnative\\bash.exe",
+            //     "pipeArgs": ["-c"],
+            //     "pipeCwd": ""
+            // },
+            "sourceFileMap": {
+                "/mnt/d/Workplace/C/VSCODE": "${workspaceFolder}"    /*把linux路径转换成windows，这样code才能找到代码*/
+            },
+            // "setupCommands": [
+            //     {
+            //         "description": "Enable pretty-printing for gdb",
+            //         "text": "-enable-pretty-printing",
+            //         "ignoreFailures": true
+            //     }
+            // ],
+            "externalConsole": true, // 调试时是否显示控制台窗口，一般设置为true显示控制台
+            "internalConsoleOptions": "neverOpen", // 如果不设为neverOpen，调试时会跳到“调试控制台”选项卡
+            "MIMode": "gdb", // 指定连接的调试器，可以为gdb或lldb。但目前lldb在windows下没有预编译好的版本。
+            "miDebuggerPath": "gdb", // 调试器路径。
+            "preLaunchTask": "Compile" // 调试会话开始前执行的任务，一般为编译程序。与tasks.json的label相对应
+        },
+
+        {
+            "name": "(gdb) Launch", // 配置名称，将会在启动配置的下拉菜单中显示
+            "type": "cppdbg", // 配置类型，这里只能为cppdbg
+            "request": "launch", // 请求配置类型，可以为launch（启动）或attach（附加）
+            "program": "${workspaceFolder}/${fileBasenameNoExtension}", // 将要进行调试的程序的路径
+            "args": [], // 程序调试时传递给程序的命令行参数，一般设为空即可
+            "stopAtEntry": false, // 设为true时程序将暂停在程序入口处，我一般设置为true
+            "cwd": "${workspaceFolder}", // 调试程序时的工作目录
+            "environment": [], // （环境变量？）
+            "externalConsole": true, // 调试时是否显示控制台窗口，一般设置为true显示控制台
+            "internalConsoleOptions": "neverOpen", // 如果不设为neverOpen，调试时会跳到“调试控制台”选项卡，你应该不需要对gdb手动输命令吧？
+            "MIMode": "gdb", // 指定连接的调试器，可以为gdb或lldb。但目前lldb在windows下没有预编译好的版本。
+            "miDebuggerPath": "gdb", // 调试器路径。
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": false
+                }
+            ],
+            "preLaunchTask": "Compile" // 调试会话开始前执行的任务，一般为编译程序。与tasks.json的label相对应
+        }
+    ]
+}
