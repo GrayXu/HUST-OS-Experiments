@@ -14,7 +14,7 @@ Hust operating system experiment in 2018 Spring.
 
  - **lab[1-4].c**
 
-	Codes of each labs which are all independent to others.
+	Codes of each labs which are all independent  others.
 
  - **lab[1-4]**
 
