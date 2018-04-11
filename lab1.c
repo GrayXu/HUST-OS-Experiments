@@ -6,7 +6,7 @@
 
 int child1(int *filedis);
 int child2(int *filedis);
-int handle();
+void handle();
 int pid1 = 0;
 int pid2 = 0;
 int pipe_field[2];// 一读一写 0写1读
@@ -50,7 +50,7 @@ int main()
 	return 0;
 }
 
-int handle(){
+void handle(){
 	kill(pid1, SIGKILL);
 	printf("Child Process l is Killed by Parent!\n");
 	kill(pid2, SIGKILL);
@@ -63,7 +63,6 @@ int child1(int *filedis)
 	close(filedis[0]);
 	while (1)
 	{
-		// printf("1 is in loops\n");
 		char string[50];
 		sprintf(string, "I send you %d", count);
 		strcat(string, " times.\n");
@@ -81,7 +80,6 @@ int child2(int *filedis)
 	close(filedis[1]);
 	while (1)
 	{
-		// printf("1 is in loops\n");
 		read(filedis[0], cache, 50);
 		printf(cache);
 	}

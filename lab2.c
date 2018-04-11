@@ -108,7 +108,7 @@ void *subp1()
     for (i = 1; i <= 100; i++)
     {
         P(1);
-        printf("thread 1 in loops, %d times\n", i);
+        // printf("thread 1 in loops, %d times\n", i);
         sum += i;
         V(0);
     }
@@ -123,7 +123,7 @@ void *subp2()
     for (i = 1; i <= 100; i++)
     {
         P(0);
-        printf("thread 2 in loops, %d times\n", i);
+        // printf("thread 2 in loops, %d times\n", i);
         printf("%d\n", sum);
         V(1);
     }
