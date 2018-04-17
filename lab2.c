@@ -21,6 +21,7 @@ pthread_t id1; //thread id
 pthread_t id2;
 int sem_id = 0;
 int threadCount = 2;
+
 union semun {
     int val;
     struct semid_ds *buf;
@@ -61,10 +62,14 @@ int main()
     }
     printf("threads have been created\n");
     // printTid();
-    while (threadCount > 0)
-    {
-        sleep(2);
-    }
+    // while (threadCount > 0)
+    // {
+    //     // sleep(2);
+    // }
+    void *status[2];
+    pthread_join(id1, &status[0]);
+    pthread_join(id2, &status[1]);
+
     delSemvalue(); //delete
     return 0;
 }
