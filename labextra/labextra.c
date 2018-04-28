@@ -274,7 +274,7 @@ void printFormatList(char** allFileNames,
                      int indexForFileNames) {
     int i = 0;
     int num = WIDTH / (maxLengthOfFileName + 2);
-    // little trick here (nerver go over 99, or i gonna fuck♂you
+    // little trick here (nerver pass 99
     int temp = maxLengthOfFileName;
     char format[10];
     strcpy(format, "%-");
