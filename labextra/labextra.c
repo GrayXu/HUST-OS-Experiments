@@ -50,16 +50,6 @@ int main(int argc, char** argv) {
     return 0;
 }
 
-void strcat_char(char* a, char b) {
-    for (int i = 0; i < strlen(a); i++) {
-        if (a[i] == '\0') {
-            a[i] = b;
-            a[i + 1] = '\0';
-            break;
-        }
-    }
-}
-
 // called by showDir
 // with '-l' further infomation of files
 char* getFileInfo(struct stat* sP, char* filename, int* blocks) {
@@ -132,7 +122,9 @@ char* getFileInfo(struct stat* sP, char* filename, int* blocks) {
     return buf;
 }
 
-// mode 1-> with '-l' input
+//mode: 0-> default
+//      1-> '-l' 
+//      2-> '-lR' 
 int showDir(char* dirname, int mode) {
     if (mode == 2) {
         printf("%s:\n", dirname);
@@ -225,12 +217,17 @@ int showDir(char* dirname, int mode) {
         }
         free(allFileNames);
     } else {
-        free(allFileInfos);
         if (mode == 2) {
             for (int i = 0; i < indexForDirNames; i++) {
                 free(allDirNames[i]);
             }
             free(allDirNames);
+        }else{
+            for (int i = 0; i < indexForInfos; i++)
+            {
+                free(allFileInfos);
+            }
+            free(allFileInfos);
         }
     }
 
@@ -274,7 +271,7 @@ void printFormatList(char** allFileNames,
                      int indexForFileNames) {
     int i = 0;
     int num = WIDTH / (maxLengthOfFileName + 2);
-    // little trick here (nerver pass 99
+    //a little trick here ( guess it wouldn't pass 99
     int temp = maxLengthOfFileName;
     char format[10];
     strcpy(format, "%-");
