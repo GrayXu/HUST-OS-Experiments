@@ -7,11 +7,11 @@
             "args": [
                 "/mnt/d/Workplace/C/VSCODE/${fileBasenameNoExtension}.c",
                 "-o", // 指定输出文件名，不加该参数则默认输出a.exe
-                "/mnt/d/Workplace/C/VSCODE/${fileBasenameNoExtension}",
+                "/mnt/d/Workplace/C/VSCODE/${fileBasenameNoExtension}.out",
                 "-g", // 生成和调试有关的信息
                 "-Wall", // 开启额外警告
                 "-static-libgcc", // 静态链接
-                "-std=c11",
+                // "-std=c11",
                 // "&&",
                 // "${dir$fileNameWithoutExt}"
             ], // 编译命令参数
@@ -25,9 +25,31 @@
                 "reveal": "always", // 在“终端”中显示编译信息的策略，可以为always，silent，never。具体参见VSC的文档
                 "focus": false, // 设为true后可以使执行task时焦点聚集在终端，但对编译c和c++来说，设为true没有意义
                 "panel": "shared" // 不同的文件的编译信息共享一个终端面板
-            }
-            ,"problemMatcher":"$gcc" // 如果你不使用clang，去掉前面的注释符，并在上一条之后加个逗号。照着我的教程做的不需要改（也可以把这行删去)
+            },
+            "problemMatcher": "$gcc" // 如果你不使用clang，去掉前面的注释符，并在上一条之后加个逗号。照着我的教程做的不需要改（也可以把这行删去)
         },
+        {
+            "taskName": "gcc",
+            "command": "D:\\Workplace\\C\\VSCODE\\gcc.bat",
+            "args": [
+                "${fileBasenameNoExtension}.c",
+                "${fileBasenameNoExtension}.out"
+            ],
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": [
+                    "relative",
+                    "${workspaceRoot}"
+                ],
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            }
+        }
     ]
-    
 }
