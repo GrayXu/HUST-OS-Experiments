@@ -12,17 +12,14 @@ Hust operating system experiment in 2018 Spring.
 
 ## File
 
- - **lab[1-4].c**
+ - **lab[1-4|labextra]**
 
-	Codes of each labs which are all independent of others.
+	Codes of each labs which are all independent of others, executable files of those codes and some test files
 
- - **lab[1-4]**
+ - **.vscode**
 
-	Output executable files of those codes.
+	Configuration of running linux c codes on vscode-windows
 
- - r.txt
-	
-	Example text data which would be read in lab3.
 
 ## Detail
 
@@ -38,4 +35,18 @@ Hust operating system experiment in 2018 Spring.
  - **lab3:**
 
 	Use shared memory and semaphore to let two processes copy data in order.
+
+ - **lab4:**
+
+	TinyOS.
+
+ - **labextra:**
+
+	Extended arguments implmented:
+
+	 - Specified path
+	 - `-l` 
+	 - `-lR`
+
+
 
