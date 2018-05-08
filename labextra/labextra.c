@@ -84,23 +84,23 @@ char* getFileInfo(struct stat* sP, char* filename, int* blocks) {
         if (s.st_mode & (1 << i)) {
             switch (i % 3) {
                 case 2:
-                    strcat(buf,"r");
+                    strcat(buf, "r");
                     break;
                 case 1:
-                    strcat(buf,"w");
+                    strcat(buf, "w");
                     break;
                 case 0:
-                    strcat(buf,"x");
+                    strcat(buf, "x");
                     break;
             }
         } else {
-            strcat(buf,"-");
+            strcat(buf, "-");
         }
     }
 
     struct passwd* p = getpwuid(s.st_uid);
     struct group* g = getgrgid(s.st_gid);
-    
+
     char temp[128];
     sprintf(temp, " %d %s %s %6ld", (int)s.st_nlink, p->pw_name, g->gr_name,
             s.st_size);
@@ -113,18 +113,21 @@ char* getFileInfo(struct stat* sP, char* filename, int* blocks) {
 
     sprintf(temp, " %s\n", filename);
     strcat(buf, temp);
-    if (s.st_size % 4096 == 0) {
-        *blocks = *blocks + s.st_size / 1028;
-    } else {
-        *blocks = *blocks + (s.st_size / 4096 + 1) * 4;
+
+    int now4Blocks = s.st_size / 4096;
+    if (S_ISLNK(s.st_mode) || S_ISDIR(s.st_mode)) {
+        now4Blocks = 0;
+    }else if (s.st_size % 4096 != 0){
+        now4Blocks++;
     }
+    *blocks = *blocks + now4Blocks*4;
 
     return buf;
 }
 
-//mode: 0-> default
-//      1-> '-l' 
-//      2-> '-lR' 
+// mode: 0-> default
+//      1-> '-l'
+//      2-> '-lR'
 int showDir(char* dirname, int mode) {
     if (mode == 2) {
         printf("%s:\n", dirname);
@@ -163,7 +166,7 @@ int showDir(char* dirname, int mode) {
         strcpy(nowDirnameBuf, dirname);
         strcat(nowDirnameBuf, "/");
         strcat(nowDirnameBuf, dirDescribe->d_name);
-        if (stat(nowDirnameBuf, &st)) {
+        if (lstat(nowDirnameBuf, &st)) {
             printf("error\n");
             return -1;
         }
@@ -222,10 +225,9 @@ int showDir(char* dirname, int mode) {
                 free(allDirNames[i]);
             }
             free(allDirNames);
-        }else{
-            for (int i = 0; i < indexForInfos; i++)
-            {
-                free(allFileInfos);
+        } else {
+            for (int i = 0; i < indexForInfos; i++) {
+                free(allFileInfos[i]);
             }
             free(allFileInfos);
         }
@@ -271,7 +273,7 @@ void printFormatList(char** allFileNames,
                      int indexForFileNames) {
     int i = 0;
     int num = WIDTH / (maxLengthOfFileName + 2);
-    //a little trick here ( guess it wouldn't pass 99
+    // a little trick here ( guess it wouldn't pass 99
     int temp = maxLengthOfFileName;
     char format[10];
     strcpy(format, "%-");

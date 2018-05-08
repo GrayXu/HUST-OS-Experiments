@@ -1,4 +1,4 @@
-// $Id: BlinkC.nc,v 1.6 2010-06-29 22:07:16 scipio Exp $
+// $Id: BlinkAppC.nc,v 1.6 2010-06-29 22:07:14 scipio Exp $
 
 /*									tab:4
  * Copyright (c) 2000-2005 The Regents of the University  of California.  
@@ -31,7 +31,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * Copyright (c) 2002-2003 Intel Corporation
+ * Copyright (c) 2002-2005 Intel Corporation
  * All rights reserved.
  *
  * This file is distributed under the terms in the attached INTEL-LICENSE     
@@ -41,48 +41,31 @@
  */
 
 /**
- * Implementation for Blink application.  Toggle the red LED when a
- * Timer fires.
+ * Blink is a basic application that toggles a mote's LED periodically.
+ * It does so by starting a Timer that fires every second. It uses the
+ * OSKI TimerMilli service to achieve this goal.
+ *
+ * @author tinyos-help@millennium.berkeley.edu
  **/
-
-#include "Timer.h"
 #include "printf.h"
 
-module BlinkC @safe()
+configuration BlinkAppC
 {
-  uses interface Timer<TMilli> as Timer0;
-  uses interface Timer<TMilli> as Timer1;
-  uses interface Timer<TMilli> as Timer2;
-  uses interface Leds;
-  uses interface Boot;
 }
 implementation
 {
-  event void Boot.booted()
-  {
-    call Timer0.startPeriodic( 250 );
-    call Timer1.startPeriodic( 500 );
-    call Timer2.startPeriodic( 1000 );
-  }
+  components MainC, BlinkC, LedsC;
+  components new TimerMilliC() as Timer0;
+  components new TimerMilliC() as Timer1;
+  components new TimerMilliC() as Timer2;
+  components PrintfC;
+  components SerialStartC;
 
-  event void Timer0.fired()
-  {
-    dbg("BlinkC", "Timer 0 fired @ %s.\n", sim_time_string());
-    call Leds.led0Toggle();
-    printf("hello world\n");
-    printfflush();
-  }
-  
-  event void Timer1.fired()
-  {
-    dbg("BlinkC", "Timer 1 fired @ %s \n", sim_time_string());
-    call Leds.led1Toggle();
-  }
-  
-  event void Timer2.fired()
-  {
-    dbg("BlinkC", "Timer 2 fired @ %s.\n", sim_time_string());
-    call Leds.led2Toggle();
-  }
+  BlinkC -> MainC.Boot;
+
+  BlinkC.Timer0 -> Timer0;
+  BlinkC.Timer1 -> Timer1;
+  BlinkC.Timer2 -> Timer2;
+  BlinkC.Leds -> LedsC;
 }
 

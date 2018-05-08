@@ -47,6 +47,7 @@
  *
  * @author tinyos-help@millennium.berkeley.edu
  **/
+#include "printf.h"
 
 configuration BlinkAppC
 {
