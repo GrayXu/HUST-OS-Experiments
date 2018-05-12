@@ -16,7 +16,6 @@ implementation
   components new SensirionSht11C();
   components new HamamatsuS1087ParC();
   
-  //components SerialActiveMessageC as AM;
 
   SensorC -> MainC.Boot;
   
@@ -26,10 +25,5 @@ implementation
   
   SensorC.Timer0 -> Timer0;
   SensorC.Leds -> LedsC;
-
-//  SensorC.Packet -> AM;
-//	SensorC.AMPacket -> AM;
-//	SensorC.Control -> AM;
-//  SensorC.AMSend -> AM.AMSend[AM_SENSORMSG];
 }
 

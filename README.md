@@ -53,3 +53,6 @@ Hust operating system experiment in 2018 Spring.
 	Loop, Task, Split Task: big calculation task situation simulation
 	SensorDemo: get sensors' data and send them for output.
 
+ - **doc.pdf**
+
+	Document of this repo.

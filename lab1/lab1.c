@@ -13,7 +13,7 @@ int pipe_field[2];// 一读一写 0写1读
 
 int main()
 {	
-	signal(SIGINT,SIG_IGN);
+	// signal(SIGINT,SIG_IGN);
 	if (pipe(pipe_field) < 0)
 	{
 		printf("pipe create failed!\n");
@@ -83,7 +83,7 @@ int child2(int *filedis)
 	{
 		// printf("1 is in loops\n");
 		read(filedis[0], cache, 50);
-		printf(cache);
+		printf("%s",cache);
 	}
 	close(filedis[0]);
 }

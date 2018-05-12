@@ -31,9 +31,6 @@ implementation
   
   event void Timer0.fired()
   {
-     //if(locked){
-       //return;
-     //}
     call readTemp.read();
     call readHumidity.read();
     call readPhoto.read();

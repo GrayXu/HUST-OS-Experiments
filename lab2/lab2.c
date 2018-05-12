@@ -117,7 +117,7 @@ void *subp1()
         sum += i;
         V(0);
     }
-    threadCount--;
+    // threadCount--;
     return ((void *)0);
 }
 
@@ -132,7 +132,7 @@ void *subp2()
         printf("%d\n", sum);
         V(1);
     }
-    threadCount--;
+    // threadCount--;
     return ((void *)0);
 }
 

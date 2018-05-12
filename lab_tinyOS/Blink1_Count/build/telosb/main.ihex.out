@@ -1,15 +1,3 @@
-<tos_image>
-  <ident>
-    <platform>telosb</platform>
-    <username>Gray</username>
-    <userhash>06C5B2DDL</userhash>
-    <timestamp>5AF6B6F8L</timestamp>
-    <hostname>MICROSO-RB9A76I</hostname>
-    <uidhash>19FF2BEBL</uidhash>
-    <appname>BlinkAppC</appname>
-    <deluge_support>no</deluge_support>
-  </ident>
-  <image format="ihex">
 :104000005542200135D0085A8245561231400039B8
 :104010003F401E000F9308249242561220012F8326
 :104020009F4FF6610011F8233F4038010F9307249A
@@ -560,5 +548,3 @@
 :10FFF0004C444C444C444C440456E6554C4400405C
 :0400000300004000B9
 :00000001FF
-  </image>
-</tos_image>
