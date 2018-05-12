@@ -48,9 +48,12 @@ Hust operating system experiment in 2018 Spring.
 
  - **lab_tinyOS**
 
-	TinyOS labs have 4 parts.
+	TinyOS labs have several parts.
+	
 	Count: count 0 to 7, and print info through serial port.
+	
 	Loop, Task, Split Task: big calculation task situation simulation
+	
 	SensorDemo: get sensors' data and send them for output.
 
  - **doc.pdf**
