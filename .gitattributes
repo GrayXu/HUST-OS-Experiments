@@ -1,2 +1,8 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+*.h linguist-language=C
+*.c linguist-language=C
+*.nc linguist-language=nesC
+*.java linguist-language=Java
+Makefile linguist-language=Makefile
