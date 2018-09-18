@@ -2,6 +2,8 @@
 
 Hust operating system experiment in 2018 Spring.
 
+Update: add summer assignment in this repo.
+
 ## Enviorment
 
 	gcc version 5.4.0 20160609 
@@ -56,6 +58,26 @@ Hust operating system experiment in 2018 Spring.
 	
 	SensorDemo: get sensors' data and send them for output.
 
+ - **CharDriver**
+ 
+	Add new char device to linux and write it's own driver
+	
+ - **ParallelWindows**	
+ 
+	Three windows showing different info and update at the same time
+	
+ - **Syscall**		
+ 
+	Compile a new linux kernel. (only new system call code in this directory)
+
+ - **Monitor**		
+ 
+	System process manager that can kill process and monitor up-to-date process info including cpu and memory usage.	
+	
+ - **FileSystem**		
+ 
+	Simulate a linux file system based on disk blocks	
+	
  - **doc.pdf**
 
-	Document of this repo.
+	Document of this experiment.

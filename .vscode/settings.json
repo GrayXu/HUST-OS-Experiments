@@ -27,5 +27,8 @@
     "python.pythonPath": "C:\\ProgramData\\Anaconda3\\python.exe",
     "terminal.integrated.shell.windows": "C:\\WINDOWS\\Sysnative\\bash.exe",
     "C_Cpp.intelliSenseEngineFallback": "Enabled",
-    "C_Cpp.clang_format_style": "{ BasedOnStyle: Chromium, IndentWidth: 4}"
+    "C_Cpp.clang_format_style": "{ BasedOnStyle: Chromium, IndentWidth: 4}",
+    "files.associations": {
+        "wait.h": "c"
+    }
 }

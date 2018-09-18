@@ -1,0 +1,21 @@
+<component name="libraryTable">
+  <library name="Demo1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/out/production/Demo/beautyeye_lnf.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/Demo/jfreechart-1.0.19-experimental.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/Demo/junit-4.11.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/Demo/orsonpdf-1.6-eval.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/Demo/swtgraphics2d.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/Demo/jfreechart-1.0.19.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/Demo/jcommon-1.0.23.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/Demo/orsoncharts-1.4-eval-nofx.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/Demo/jfreesvg-2.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/Demo/mysql-connector-java-8.0.11.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/Demo/jfreechart-1.0.19-swt.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/Demo/hamcrest-core-1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/Demo/servlet.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
