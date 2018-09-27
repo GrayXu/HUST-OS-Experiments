@@ -2,12 +2,21 @@ package GUI;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
+import Data.DataUtils;
 import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
-import org.jb2011.lnf.beautyeye.ch3_button.BEButtonUI;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.StandardChartTheme;
+
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.io.*;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Vector;
 
 public class MainGui {
 
@@ -15,7 +24,7 @@ public class MainGui {
     private JTabbedPane tabPanel;
     private JPanel infoPanel;
     private JTextArea infoTA;
-    private JPanel chartPanel;
+    private JPanel tablePanel;
     private JPanel graphPanel;
     private JScrollPane scrollPanel;
     private JTable jTable;
@@ -46,22 +55,102 @@ public class MainGui {
         MainGui mainGui = new MainGui();
         frame.setContentPane(mainGui.jMainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500,600);
+        frame.setSize(600, 600);
         frame.setVisible(true);
-
+        frame.setResizable(false);
         mainGui.init();
     }
 
-    private void init(){
+    private void init() {
         infoTA.setOpaque(false);
         createPopupMenu();
         scrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        initInfoPanel();
+        initTable();
+        initGraph();
     }
 
-    private void initChart(){
+
+    private void initGraph() {
+        StandardChartTheme standardChartTheme = new StandardChartTheme("CN");
+        standardChartTheme.setExtraLargeFont(new Font("微软雅黑", Font.BOLD, 20));
+        standardChartTheme.setRegularFont(new Font("微软雅黑", Font.PLAIN, 15));
+        standardChartTheme.setLargeFont(new Font("微软雅黑", Font.PLAIN, 15));
+
+        ChartFactory.setChartTheme(standardChartTheme);
+        MemChart memChart = new MemChart("Memory Usage", "Memory Usage", "%");
+        CpuChart cpuChart = new CpuChart("Memory Usage", "CPU Usage", "%");
+        graphPanel.add(memChart, BorderLayout.NORTH);
+        graphPanel.add(cpuChart, BorderLayout.SOUTH);
+
+        memChart.setPreferredSize(new Dimension(200, 200));
+        cpuChart.setPreferredSize(new Dimension(200, 200));
+
+//        memChart.setSize(100,100);
+//        cpuChart.setSize(100,100);
+        (new Thread(memChart)).start();
+        (new Thread(cpuChart)).start();
+    }
+
+
+    private void initInfoPanel() {
+        infoTA.setText("");
+        infoTA.append("Hostname:\t" + DataUtils.getAllString("/proc/sys/kernel/hostname") + "\n");
+        infoTA.append("Version\t:\t" + DataUtils.getAllString("/proc/version").split("b")[0] + "\n");
+        infoTA.append("CPU\t:\t" + DataUtils.getValue("/proc/cpuinfo", "model name") + "\n");
+        infoTA.append("Cores\t:\t" + DataUtils.getValue("/proc/cpuinfo", "cpu cores") + "\n");
+        infoTA.append("L3 Cache:\t" + DataUtils.getValue("/proc/cpuinfo", "cache size") + "\n");
+        infoTA.append("Memory\t:" + DataUtils.getValue("/proc/meminfo", "MemTotal") + "\n");
+        infoTA.append("Disk\t:" + DataUtils.getPartitions() + "\n");
+    }
+
+    private void initTable() {
         jTable.getTableHeader().setReorderingAllowed(false);
-        DefaultTableModel tableModel = new DefaultTableModel();
+
+        Vector<String> columns = new Vector<>(Arrays.asList("Pid", "Name", "PPid", "Memory(kB)", "Priority", "CPU(%)"));
+        Vector<Vector<String>> data = DataUtils.getProcessData();
+
+        DefaultTableModel tableModel = new DefaultTableModel(data, columns) {
+            @Override
+            public boolean isCellEditable(int i, int i1) {
+                return false;
+            }
+        };
         jTable.setModel(tableModel);
+
+        RowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tableModel);
+
+        Comparator<Object> comparator = new Comparator<Object>() {
+            @Override
+            public int compare(Object o, Object t1) {
+                try {
+                    int a = Integer.parseInt(o.toString());
+                    int b = Integer.parseInt(t1.toString());
+                    return a - b;
+                } catch (NumberFormatException e1) {
+                    try {
+
+                        float a = Float.parseFloat(o.toString());
+                        float b = Float.parseFloat(t1.toString());
+
+                        if (a > b) return 1;
+                        else if (a < b) return -1;
+                        else return 0;
+
+                    } catch (Exception e2) {
+                        return String.valueOf(o).compareTo(String.valueOf(t1));
+                    }
+
+                }
+            }
+        };
+
+        ((TableRowSorter<TableModel>) sorter).setComparator(0, comparator);
+        ((TableRowSorter<TableModel>) sorter).setComparator(2, comparator);
+        ((TableRowSorter<TableModel>) sorter).setComparator(3, comparator);
+        ((TableRowSorter<TableModel>) sorter).setComparator(4, comparator);
+        ((TableRowSorter<TableModel>) sorter).setComparator(5, comparator);
+        jTable.setRowSorter(sorter);
 
         jTable.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
@@ -70,6 +159,7 @@ public class MainGui {
             }
         });
 
+        (new Thread(new TableUpdater(tableModel, jTable))).start();
     }
 
     //判断是否为鼠标的BUTTON3按钮，BUTTON3为鼠标右键
@@ -95,26 +185,49 @@ public class MainGui {
     private void createPopupMenu() {
         jPopupMenu = new JPopupMenu();
 
-        JMenuItem delMenuItem = new JMenuItem();
-        delMenuItem.setText("Test1");
-        delMenuItem.addActionListener(evt -> {
-//            String key = (String) jTable.getValueAt(delete_row_id, 0);
-//            try {
-//                DataBase.getInstance().deleteRow(PANEL_MODE, key);
-//                tableModel.removeRow(delete_row_id);
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//                noticeMsg("删除失败");
-//            }
-        });
-
-
         JMenuItem addMenuItem = new JMenuItem();
         addMenuItem.setText("Kill");
-//        addMenuItem.addActionListener(evt -> setAddRowDialog());
 
-        jPopupMenu.add(delMenuItem);
+        addMenuItem.addActionListener(evt -> {
+            String pid = (String) jTable.getValueAt(delete_row_id, 0);
+            killProcess(pid);
+        });
+
         jPopupMenu.add(addMenuItem);
+    }
+
+    private void killProcess(String pid) {
+        String command = "bash run.sh";
+        //chage file to fit the requirement
+
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("run.sh"));
+
+            writer.write("sudo -S kill "+pid+" << EOF \n" +
+                    "XIANG1569348\n" +
+                    "EOF");
+
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        new Thread(() -> {
+            try {
+                System.out.println(command);
+                Process ps = Runtime.getRuntime().exec(command);
+                int com = ps.waitFor();
+                if (com == 0) {
+                    System.out.println("success");
+                } else {
+                    System.out.println("fail");
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 
     /**

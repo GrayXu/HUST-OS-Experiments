@@ -10,8 +10,6 @@ public class INode implements Serializable {
     //TODO: authority & history
     private static final long serialVersionUID = 1L;
 
-//    public String owner;
-
     private String name;
 
     public INode(String name) {
@@ -22,10 +20,6 @@ public class INode implements Serializable {
         this(name);
         this.blocklist = blocklist;
     }
-
-//    public void setOwner(String owner){
-//        this.owner = owner;
-//    }
 
     public String getName() {
         return name;

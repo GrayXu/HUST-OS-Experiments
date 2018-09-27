@@ -1,0 +1,3 @@
+sudo -S kill 4398 << EOF 
+XIANG1569348
+EOF

@@ -24,15 +24,17 @@
                 <properties>
                   <dragEnabled value="false"/>
                   <editable value="false"/>
+                  <font size="14"/>
                   <text value="Loading..."/>
+                  <wrapStyleWord value="false"/>
                 </properties>
               </component>
             </children>
           </grid>
-          <grid id="e5421" binding="chartPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="e5421" binding="tablePanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
-              <tabbedpane title="Chart"/>
+              <tabbedpane title="Table"/>
             </constraints>
             <properties/>
             <border type="none"/>
@@ -52,8 +54,7 @@
               </scrollpane>
             </children>
           </grid>
-          <grid id="261cb" binding="graphPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-            <margin top="0" left="0" bottom="0" right="0"/>
+          <grid id="261cb" binding="graphPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
             <constraints>
               <tabbedpane title="Graph"/>
             </constraints>

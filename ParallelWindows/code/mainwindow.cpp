@@ -33,7 +33,6 @@ void MainWindow::update1(){
         ui->textBrowser->insertPlainText(str);
         count++;
     }
-
 }
 
 MainWindow::~MainWindow()

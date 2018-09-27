@@ -16,8 +16,7 @@ int main(void)
     char device[20], dir[50] = "/dev/gray_driver";
     
     fd = open(dir, O_RDWR | O_NONBLOCK);
-    if (fd != -1)  
-    {  
+    if (fd != -1) {  
         read(fd, rdbuf, sizeof(rdbuf));  
         printf("The string in the device is: %s\n", rdbuf);  
         printf("Input a string  :\n");
@@ -28,8 +27,7 @@ int main(void)
         close(fd);  
         return 0;  
     }  
-    else  
-    {  
+    else  {  
         printf("Fail to open device!!\n"); 
 		perror("open"); 
         return -1;  

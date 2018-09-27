@@ -36,12 +36,12 @@ int init_module(){
 	else {
 		printk("the device has been registered!\n");  
         device_num = ret;  
-        printk("<1>the virtual device's major number %d.\n", device_num);  
-        printk("<1>Or you can see it by using\n");  
-        printk("<1>------more /proc/devices-------\n");  
-        printk("<1>To talk to the driver,create a dev file with\n");  
-        printk("<1>------'mknod /dev/myDevice c %d 0'-------\n", device_num);  
-        printk("<1>Use \"rmmode\" to remove the module\n");  
+        // printk("<1>the virtual device's major number %d.\n", device_num);  
+        // printk("<1>Or you can see it by using\n");  
+        // printk("<1>------more /proc/devices-------\n");  
+        // printk("<1>To talk to the driver,create a dev file with\n");  
+        // printk("<1>------'mknod /dev/myDevice c %d 0'-------\n", device_num);  
+        // printk("<1>Use \"rmmode\" to remove the module\n");  
         return 0;
 	}
 }
